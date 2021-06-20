@@ -1,5 +1,4 @@
 from threading import Thread
-from ast import literal_eval
 import paho.mqtt.client as mqtt
 import json
 
