@@ -22,3 +22,25 @@ Run phone.py - This program simulates what would run on the phone of the user
 Now you can give inputs and see the state changes
 
 It is important to note that in this simulation there is two programs for a better visualization in the terminal but in a real application all of this logic would be running on the phone of the user
+
+## Crendentials
+To add the credentials of your devices from the konker plataform you should create a file name credentials.py and add the data like the exemple bellow:
+
+    devices = {
+        "phone": {
+            "username": "KONKER_MQTT_USERNAME",
+            "password": "KONKER_MQTT_PASSWORD"
+        },
+        "lamp": {
+            "username": "KONKER_MQTT_USERNAME",
+            "password": "KONKER_MQTT_PASSWORD"
+        },
+        "robot": {
+            "username": "KONKER_MQTT_USERNAME",
+            "password": "KONKER_MQTT_PASSWORD"
+        },
+        "presence": {
+            "username": "KONKER_MQTT_USERNAME",
+            "password": "KONKER_MQTT_PASSWORD"
+        },
+    }
