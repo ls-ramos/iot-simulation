@@ -26,21 +26,43 @@ It is important to note that in this simulation there is two programs for a bett
 ## Crendentials
 To add the credentials of your devices from the konker plataform you should create a file name credentials.py and add the data like the exemple bellow:
 
+    server_url_mqtt = "mqtt.prod.konkerlabs.net"
+
     devices = {
         "phone": {
             "username": "KONKER_MQTT_USERNAME",
-            "password": "KONKER_MQTT_PASSWORD"
+            "password": "KONKER_MQTT_PASSWORD",
+            "pub": "data/KONKER_MQTT_USERNAME/pub/",
+            "sub": "data/KONKER_MQTT_USERNAME/sub/"
         },
         "lamp": {
             "username": "KONKER_MQTT_USERNAME",
-            "password": "KONKER_MQTT_PASSWORD"
+            "password": "KONKER_MQTT_PASSWORD",
+            "pub": "data/KONKER_MQTT_USERNAME/pub/",
+            "sub": "data/KONKER_MQTT_USERNAME/sub/"
         },
         "robot": {
             "username": "KONKER_MQTT_USERNAME",
-            "password": "KONKER_MQTT_PASSWORD"
+            "password": "KONKER_MQTT_PASSWORD",
+            "pub": "data/KONKER_MQTT_USERNAME/pub/",
+            "sub": "data/KONKER_MQTT_USERNAME/sub/"
         },
         "presence": {
             "username": "KONKER_MQTT_USERNAME",
-            "password": "KONKER_MQTT_PASSWORD"
+            "password": "KONKER_MQTT_PASSWORD",
+            "pub": "data/KONKER_MQTT_USERNAME/pub/",
+            "sub": "data/KONKER_MQTT_USERNAME/sub/"
         },
     }
+
+The fields pub and sub are usually in the form "data/KONKER_MQTT_USERNAME/pub/" but if you are running konker locally it can be "pub/KONKER_MQTT_USERNAME/" just as the server_url_mqtt that can be "127.0.0.1" when running locally. To make easily this project easily interchangeble between running locally or not this data is stored in credentials.
+
+
+## The konker plataform
+### Hosted plataform
+You can access the hosted konker plataform in the link https://www.konkerlabs.com/ 
+
+### Running locally
+You can also run konker locally getting the konker docker image https://hub.docker.com/r/konkerlabs/konker-platform/ (This is recommended because of simplicity of configuration)
+
+But you can also get the project on github https://github.com/KonkerLabs/konker-platform and configure the environment yourself
