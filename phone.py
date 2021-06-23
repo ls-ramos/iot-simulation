@@ -4,7 +4,7 @@ import paho.mqtt.client as mqtt
 import json
 import signal
 
-from credentials import devices
+from credentials import devices, server_url_mqtt
 
 # Config stop waiting for input when notification arrives
 def interrupted(signum, frame):
@@ -29,7 +29,7 @@ class Notification(Thread):
 
     # Presence state
     def on_connect_notification(self, client, userdata, flags, rc):
-        client.subscribe("data/"+devices["phone"]["username"]+"/sub/request")
+        client.subscribe(devices["phone"]["sub"]+"request")
     
     def on_message(self, client, data, msg):
         msg_json = json.loads(msg.payload)
@@ -45,7 +45,7 @@ class Notification(Thread):
         notification_client.on_message = self.on_message
         notification_client.on_connect = self.on_connect_notification
         notification_client.username_pw_set(devices["phone"]["username"], devices["phone"]["password"])
-        notification_client.connect("mqtt.prod.konkerlabs.net", 1883)
+        notification_client.connect(server_url_mqtt, 1883)
         notification_client.loop_forever()
 
 notification = Notification()
@@ -54,16 +54,16 @@ notification.start()
 
 phone_client = mqtt.Client()
 phone_client.username_pw_set(devices["phone"]["username"], devices["phone"]["password"])
-phone_client.connect("mqtt.prod.konkerlabs.net", 1883)
+phone_client.connect(server_url_mqtt, 1883)
 
 presence_client = mqtt.Client()
 presence_client.username_pw_set(devices["presence"]["username"],devices["presence"]["password"])
-presence_client.connect("mqtt.prod.konkerlabs.net", 1883)
+presence_client.connect(server_url_mqtt, 1883)
 
 # Inicial state
-phone_client.publish("data/"+devices["phone"]["username"]+"/pub/lamp", json.dumps({"is_lamp_on": True}))
-phone_client.publish("data/"+devices["phone"]["username"]+"/pub/robot", json.dumps({"is_robot_on": False}))
-presence_client.publish("data/"+devices["presence"]["username"]+"/pub/sensor", json.dumps({"is_present": True}))
+phone_client.publish(devices["phone"]["pub"]+"lamp", json.dumps({"is_lamp_on": True}))
+phone_client.publish(devices["phone"]["pub"]+"robot", json.dumps({"is_robot_on": False}))
+presence_client.publish(devices["presence"]["pub"]+"sensor", json.dumps({"is_present": True}))
 
 while True:
     if request_user_action == True:
@@ -74,12 +74,12 @@ while True:
 
         allow_client = mqtt.Client()
         allow_client.username_pw_set(devices["phone"]["username"], devices["phone"]["password"])
-        allow_client.connect("mqtt.prod.konkerlabs.net", 1883)
+        allow_client.connect(server_url_mqtt, 1883)
     
         if command == 1:
-            allow_client.publish("data/"+devices["phone"]["username"]+"/pub/robot", json.dumps({"is_robot_on": True}))
+            allow_client.publish(devices["phone"]["pub"]+"robot", json.dumps({"is_robot_on": True}))
         
-        allow_client.publish("data/"+devices["phone"]["username"]+"/pub/ask", json.dumps({"should_turn_on": False}))
+        allow_client.publish(devices["phone"]["pub"]+"ask", json.dumps({"should_turn_on": False}))
         request_user_action = False
 
     print("Which action would like to perform ?\n"
@@ -95,17 +95,17 @@ while True:
     signal.alarm(0)
 
     if command == 1:    
-        phone_client.publish("data/"+devices["phone"]["username"]+"/pub/lamp", json.dumps({"is_lamp_on": True}))
+        phone_client.publish(devices["phone"]["pub"]+"lamp", json.dumps({"is_lamp_on": True}))
     elif command == 2:
-        phone_client.publish("data/"+devices["phone"]["username"]+"/pub/lamp", json.dumps({"is_lamp_on": False}))
+        phone_client.publish(devices["phone"]["pub"]+"lamp", json.dumps({"is_lamp_on": False}))
     elif command == 3:
-        phone_client.publish("data/"+devices["phone"]["username"]+"/pub/robot", json.dumps({"is_robot_on": True}))
+        phone_client.publish(devices["phone"]["pub"]+"robot", json.dumps({"is_robot_on": True}))
     elif command == 4:
-        phone_client.publish("data/"+devices["phone"]["username"]+"/pub/robot", json.dumps({"is_robot_on": False}))
+        phone_client.publish(devices["phone"]["pub"]+"robot", json.dumps({"is_robot_on": False}))
     elif command == 5:
-        presence_client.publish("data/"+devices["presence"]["username"]+"/pub/sensor", json.dumps({"is_present": True}))
+        presence_client.publish(devices["presence"]["pub"]+"sensor", json.dumps({"is_present": True}))
     elif command == 6:
-        presence_client.publish("data/"+devices["presence"]["username"]+"/pub/sensor", json.dumps({"is_present": False}))
+        presence_client.publish(devices["presence"]["pub"]+"sensor", json.dumps({"is_present": False}))
     elif command == -1:
         pass # ignore this command probably came from notification
     elif command == 0:
