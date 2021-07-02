@@ -60,7 +60,8 @@ class HouseTest(Thread):
         global final_time
         for key in delay:
             for re_time in delay[key]:
-                final_time.append(re_time)
+                if re_time > 0:
+                    final_time.append(re_time)
 
         if self.details:
             print("Time of request:", delay)
@@ -185,18 +186,22 @@ if __name__ == "__main__":
         test.start()
 
     print("Running simulation...")
-    while len(final_time) < args.house_num*3*args.request_num:
-        time.sleep(args.wait)
     
-    sum = 0
-    highest = 0
-    for num in final_time:
-        if num > highest:
-            highest = num
-        sum += num
-    avg_final = sum/len(final_time)
+    while len(final_time)<args.house_num*3*args.request_num:
+        time.sleep(15)
 
-    print("AVG Final:", avg_final)
-    print("Highest Final:", highest)
+        sum = 0
+        highest = 0
+        avg_final = 0
+        if len(final_time) > 0:
+            for num in final_time:
+                if num > highest:
+                    highest = num
+                sum += num
+            avg_final = sum/len(final_time)
+
+        print("AVG:", avg_final)
+        print("Highest:", highest)
+
 
     os._exit(1) # not clean exit but works in this case...
