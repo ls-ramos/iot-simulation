@@ -1,5 +1,5 @@
 ## IOT Konker demonstration
-This project is a simple simulation of a iot application with the konker platform using the mqtt protocol for communication.
+This project is a simulation of a iot application with the konker platform using the mqtt protocol for communication.
 
 In this project, the simulated scenario is a smart house where the user can control the lights and the house cleaning robot with his phone. It is also simulated that the house has a presence sensor that can tell if the user is in the house or not (the phone could also be used for this, but in this simulation the presence sensor was modeled as another device). With these sensors the app also turns off the lights automatically for the user if he leaves the house with the lights on and also if the cleaning robot is turned off when the user leaves the house, the app notifies the user asking if he wants to turn on the robot.
 
@@ -57,6 +57,8 @@ To add the credentials of your devices from the konker plataform you should crea
 
 The fields pub and sub are usually in the form "data/KONKER_MQTT_USERNAME/pub/" but if you are running konker locally it can be "pub/KONKER_MQTT_USERNAME/" just as the server_url_mqtt that can be "127.0.0.1" when running locally. To make easily this project easily interchangeble between running locally or not this data is stored in credentials.
 
+## Goal
+This project was presented as the final project of my computer engineering graduation and this simulation was used to write a paper about IoT simulations
 
 ## The konker plataform
 ### Hosted plataform
