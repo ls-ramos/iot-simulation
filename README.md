@@ -6,9 +6,10 @@ This project is a simulation of an IoT-based smart home application, leveraging 
 ### Project Overview
 
 The simulation models a smart home environment where a user can control key household devices remotely via a mobile phone. The core functionalities include:
-	•	Smart Lighting Control: Users can turn lights on and off manually, and the system can automatically switch them off if the user leaves them on while exiting the house.
-	•	Automated Cleaning Robot: Users can activate or deactivate a cleaning robot remotely. If the robot is off when the user leaves, the system sends a notification prompting them to turn it on.
-	•	Presence Detection: A presence sensor determines whether the user is home or away. (In a real-world scenario, the user’s phone could serve as the presence detector, but for this simulation, it is modeled as a separate IoT device.)
+
+  - Smart Lighting Control: Users can turn lights on and off manually, and the system can automatically switch them off if the user leaves them on while exiting the house.
+  - Automated Cleaning Robot: Users can activate or deactivate a cleaning robot remotely. If the robot is off when the user leaves, the system sends a notification prompting them to turn it on.
+  - Presence Detection: A presence sensor determines whether the user is home or away. (In a real-world scenario, the user’s phone could serve as the presence detector, but for this simulation, it is modeled as a separate IoT device.)
 
 The structure of the project in konker is:
 ![alt text](https://github.com/lucasR23/iot-simulation/blob/main/konkerStructure.png?raw=true)
